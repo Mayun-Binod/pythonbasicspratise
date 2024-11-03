@@ -1,0 +1,32 @@
+In Django, serving static files (like CSS, JavaScript, and images) requires configuring the settings to define where the static files are located and how they should be served, especially in a development or production environment.
+
+Step 1: Configure Static Settings in settings.py
+Add the following settings in your settings.py file:
+
+# Base URL for static files
+STATIC_URL = '/static/'
+
+# Directory where static files will be collected for production (e.g., using `collectstatic`)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Additional locations for static files
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # Or any other directory where your static files are located
+]
+Step 2: Create a static Directory
+In your app or project root, create a folder named static if it doesn’t already exist. Inside this directory, organize your static files like CSS, JS, and images.
+
+Step 3: Include {% static %} Template Tag
+In your templates, use the {% static %} template tag to reference static files. Make sure you load the static tag at the top of your template file:
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<img src="{% static 'images/logo.png' %}" alt="Logo">
+Step 4: Serve Static Files (Development)
+Django automatically serves static files in development mode (DEBUG=True). However, in production, you’ll need to configure your web server (like Nginx or Apache) to serve the static files from the STATIC_ROOT location.
+
+Step 5: Collect Static Files (Production)
+Before deploying, run the collectstatic command to gather all static files into the STATIC_ROOT directory:
+
+=>python manage.py collectstatic
+This command copies all static files from each app and the locations in STATICFILES_DIRS to STATIC_ROOT.

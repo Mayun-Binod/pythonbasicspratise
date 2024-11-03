@@ -1,0 +1,74 @@
+In Django, handling media files (such as images, videos, or documents) requires setting up a few configurations in your project. Here’s a quick guide to managing media files in Django:
+
+1. Configure MEDIA_URL and MEDIA_ROOT
+In your Django project’s settings.py file, define the following:
+
+# settings.py
+
+import os
+
+# URL to access media files
+MEDIA_URL = '/media/'
+
+# Path to store media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL: This is the URL endpoint through which media files will be accessed.
+MEDIA_ROOT: This is the directory on your server where the uploaded media files will be saved.
+2. Update urls.py to Serve Media Files (During Development)
+To serve media files during development, add the following lines to your main urls.py:
+
+# urls.py
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    # your other URL patterns here
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+Note: In production, it’s recommended to serve media files through a dedicated web server, like Nginx, rather than Django itself.
+
+3. Define a FileField or ImageField in Your Model
+To allow file uploads, use FileField or ImageField in your models:
+
+# models.py
+
+from django.db import models
+
+class Profile(models.Model):
+    name = models.CharField(max_length=100)
+    avatar = models.ImageField(upload_to='avatars/')  # Saves uploaded files to `MEDIA_ROOT/avatars/`
+upload_to: Specifies the subdirectory within MEDIA_ROOT where files will be stored.
+4. Handle Media in Forms and Views
+In your form and view, make sure to include enctype="multipart/form-data" in the form and handle file uploads in your view.
+
+Form Template:
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+View:
+
+# views.py
+
+from django.shortcuts import render
+from .models import Profile
+from .forms import ProfileForm
+
+def profile_upload(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ProfileForm()
+    return render(request, 'profile_upload.html', {'form': form})
+5. Access Uploaded Media Files
+To access uploaded files in your templates, use the MEDIA_URL prefix:
+
+<img src="{{ profile.avatar.url }}" alt="{{ profile.name }}">
+That’s it! This setup allows Django to handle and serve media files in development.

@@ -1,0 +1,46 @@
+In Django, templates can be configured to load from a specific directory and use template tags. Here's how you can configure templates in your Django project:
+
+Define Template Directory in Settings: Open settings.py and add the directory where your templates are stored.
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Add this line to specify your templates directory
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+Create Template Folder: Inside your project directory, create a folder named templates, if you haven't already.
+
+Using Templates in Views: To render a template from your view, use the render function.
+from django.shortcuts import render
+
+def my_view(request):
+    return render(request, 'my_template.html')
+Using Template Tags and Variables: In my_template.html, you can use template tags like {% %} for logic and {{ }} for variables.
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Template</title>
+</head>
+<body>
+    <h1>Hello, {{ user.username }}!</h1>
+    {% if user.is_authenticated %}
+        <p>Welcome back!</p>
+    {% else %}
+        <p>Please log in.</p>
+    {% endif %}
+</body>
+</html>
+This configuration allows you to organize your templates effectively and access them across your Django project.
