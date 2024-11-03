@@ -1,0 +1,84 @@
+Django is a high-level, open-source web framework for developing web applications quickly and with clean, pragmatic design. Here's an overview of key Django concepts:
+1. Installation
+=>Install Django using pip:
+pip install django
+To create a Django project:
+=>django-admin startproject projectname
+
+2. Project and App Structure
+A project contains settings and configurations, while apps contain specific functionality (like a blog or a forum).
+To create an app within a project:
+=>python manage.py startapp appname
+
+3. Models
+Models define the structure of your database tables. Each model is a class that subclasses django.db.models.Model.
+Example:
+from django.db import models
+
+class Customer(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+
+
+Django is a high-level, open-source web framework for developing web applications quickly and with clean, pragmatic design. Here's an overview of key Django concepts:
+
+1. Installation
+Install Django using pip:
+bash
+Copy code
+pip install django
+To create a Django project:
+bash
+Copy code
+django-admin startproject projectname
+2. Project and App Structure
+A project contains settings and configurations, while apps contain specific functionality (like a blog or a forum).
+To create an app within a project:
+bash
+Copy code
+python manage.py startapp appname
+3. Models
+Models define the structure of your database tables. Each model is a class that subclasses django.db.models.Model.
+Example:
+python
+Copy code
+from django.db import models
+
+class Customer(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+
+4. Views
+Views are Python functions or classes that handle HTTP requests and return HTTP responses.
+Example of a function-based view:
+from django.shortcuts import render
+
+def index(request):
+    return render(request, 'index.html')
+
+5. URLs
+URLs route requests to the correct view. In each app, create a urls.py file to define routes, then include it in the project’s main urls.py.
+Example:
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+
+8. Forms
+Django forms handle form creation, validation, and data processing.
+Example:
+from django import forms
+from .models import Customer
+
+class CustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['name', 'email']
+
+12. Database Migrations
+Migrations are Django’s way of propagating model changes to the database.
+Commands:
+=>python manage.py makemigrations
+=>python manage.py migrate
