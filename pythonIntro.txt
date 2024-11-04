@@ -1,0 +1,11 @@
+Python is a versatile, high-level programming language that emphasizes code readability and easy syntax, which is perfect for both beginners and experienced developers. Python, released in 1991 by Guido van Rossum, emphasizes code readability and lowers the program maintenance cost. So, without further ado, here is a brief list of its main features:
+
+Key Features of Python:
+
+Learn and Read Easily: Python's syntax is quite simple and straight forward, making it easy to understand and improving readability.
+
+Interpreted Language: In python, the code is implemented one line at a time, which makes debugging a bit easier.
+
+Dynamic Typing: In Python, there is no need to declare variables before using them or declare their type. It dynamically allocates memory using the interpreter.
+
+Machine Independent: Python hides the majority of computer hardware complexity from the users.
