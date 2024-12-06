@@ -24,12 +24,9 @@ Django is a high-level, open-source web framework for developing web application
 
 1. Installation
 Install Django using pip:
-bash
-Copy code
 pip install django
 To create a Django project:
-bash
-Copy code
+
 django-admin startproject projectname
 2. Project and App Structure
 A project contains settings and configurations, while apps contain specific functionality (like a blog or a forum).
@@ -40,8 +37,7 @@ python manage.py startapp appname
 3. Models
 Models define the structure of your database tables. Each model is a class that subclasses django.db.models.Model.
 Example:
-python
-Copy code
+
 from django.db import models
 
 class Customer(models.Model):
